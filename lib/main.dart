@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './widgets/todo_list_item.dart';
+import './models/todo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  bool _value = false;
+  //bool _value = false;
+  List<ToDo> todoList = [
+    ToDo(title: "Go shopping", isDone: false, date: DateTime.now()),
+    ToDo(title: "Clean the house", isDone: false, date: DateTime.now()),
+    ToDo(title: "Feed the cat", isDone: false, date: DateTime.now())
+  ];
 
   void _incrementCounter() {
     setState(() {
@@ -53,7 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: ToDoListItem(_value), //CheckboxListTile
+      body: ListView.builder(
+          itemCount: todoList.length,
+          itemBuilder: ((context, index) {
+            return ToDoListItem(todoList, index);
+          })),
+      // ToDoListItem(_value), //CheckboxListTile
 
       floatingActionButton: Container(
         alignment: Alignment.bottomCenter,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './widgets/todo_list_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,24 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 5,
-        child: CheckboxListTile(
-          title: const Text('GeeksforGeeks'),
-          subtitle: Text(DateTime.now().toString()),
-          autofocus: false,
-          activeColor: Colors.grey,
-          checkColor: Colors.white,
-          selected: _value,
-          value: _value,
-          onChanged: (bool? value) {
-            setState(() {
-              _value = value!;
-            });
-          },
-        ),
-      ), //CheckboxListTile
+      body: ToDoListItem(_value), //CheckboxListTile
 
       floatingActionButton: Container(
         alignment: Alignment.bottomCenter,

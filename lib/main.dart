@@ -40,12 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ToDo(title: "Feed the cat", isDone: false, date: DateTime.now())
   ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   void addToListModal(BuildContext ctx) {
     //todoList.add(value)
     showModalBottomSheet(
@@ -54,10 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
         return GestureDetector(
           onTap: () {},
           behavior: HitTestBehavior.opaque,
-          child: NewTodoListItem(),
+          child: NewTodoListItem(addToList),
         );
       },
     );
+  }
+
+  void addToList(String title, bool isDone, DateTime addedDate) {
+    setState(() {
+      todoList.add(ToDo(title: title, isDone: false, date: addedDate));
+    });
   }
 
   @override

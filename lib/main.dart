@@ -77,7 +77,23 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
           itemCount: todoList.length,
           itemBuilder: ((context, index) {
-            return ToDoListItem(todoList, index);
+            final todoListItem = todoList[index];
+            return Dismissible(
+                key: Key(todoListItem.date.toString()),
+                onDismissed: (direction) {
+                  setState(() {
+                    todoList.removeAt(index);
+                  });
+                },
+                background: Container(
+                    padding: EdgeInsets.only(right: 20),
+                    alignment: Alignment.centerRight,
+                    color: Colors.red,
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                child: ToDoListItem(todoList, index));
           })),
       // ToDoListItem(_value), //CheckboxListTile
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

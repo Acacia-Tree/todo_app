@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './widgets/todo_list_item.dart';
 import './models/todo.dart';
+import './new_todo_list_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,8 +46,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void addToTodoList() {
+  void addToListModal(BuildContext ctx) {
     //todoList.add(value)
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: NewTodoListItem(),
+        );
+      },
+    );
   }
 
   @override
@@ -58,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              _incrementCounter();
+              addToListModal(context);
             },
           ),
         ],
@@ -69,14 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
             return ToDoListItem(todoList, index);
           })),
       // ToDoListItem(_value), //CheckboxListTile
-
-      floatingActionButton: Container(
-        alignment: Alignment.bottomCenter,
-        child: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addToListModal(context);
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
